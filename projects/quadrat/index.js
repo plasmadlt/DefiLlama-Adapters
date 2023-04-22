@@ -1,15 +1,15 @@
-const { GraphQLClient, gql } = require("graphql-request");
-const sdk = require("@defillama/sdk");
+const { GraphQLClient, gql } = require('graphql-request');
+const sdk = require('@defillama/sdk');
 const BigNumber = require('bignumber.js');
 
-const CHAINS = ["polygon", "optimism", "ethereum", "arbitrum", "bsc"];
+const CHAINS = ['polygon', 'optimism', 'ethereum', 'arbitrum', 'bsc'];
 
 const GRAPH_CLIENTS = {
-  ethereum: new GraphQLClient("https://api.thegraph.com/subgraphs/name/ilyamk/quadrat-v1-ethereum"),
-  polygon: new GraphQLClient("https://api.thegraph.com/subgraphs/name/ilyamk/quadrat-v1-polygon"),
-  arbitrum: new GraphQLClient("https://api.thegraph.com/subgraphs/name/ilyamk/quadrat-v1-arbitrum"),
-  optimism: new GraphQLClient("https://api.thegraph.com/subgraphs/name/ilyamk/quadrat-v1-optimism"),
-  bsc: new GraphQLClient("https://api.thegraph.com/subgraphs/name/ilyamk/quadrat-v1-bnb")
+  ethereum: new GraphQLClient('https://api.thegraph.com/subgraphs/name/ilyamk/quadrat-v1-ethereum'),
+  polygon: new GraphQLClient('https://api.thegraph.com/subgraphs/name/ilyamk/quadrat-v1-polygon'),
+  arbitrum: new GraphQLClient('https://api.thegraph.com/subgraphs/name/ilyamk/quadrat-v1-arbitrum'),
+  optimism: new GraphQLClient('https://api.thegraph.com/subgraphs/name/ilyamk/quadrat-v1-optimism'),
+  bsc: new GraphQLClient('https://api.thegraph.com/subgraphs/name/ilyamk/quadrat-v1-bnb'),
 };
 
 const GRAPH_QUERY = gql`
@@ -63,12 +63,12 @@ function chainTvlFactory(chain) {
 module.exports = {
   timetravel: true,
   misrepresentedTokens: false,
-  methodology: "Counts the tokens locked in Strategy Vaults in Uniswap v3 Pools.",
+  methodology: 'Counts the tokens locked in Strategy Vaults in Uniswap v3 Pools.',
   start: 1667197843, // Mon Oct 31 2022 06:30:43 GMT+0000
   ...CHAINS.reduce((tvls, chain) => {
     tvls[chain] = {
-      tvl: chainTvlFactory(chain)
+      tvl: chainTvlFactory(chain),
     };
     return tvls;
-  }, {})
+  }, {}),
 };
